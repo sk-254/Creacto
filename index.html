@@ -252,6 +252,37 @@
       document.body.classList.toggle("light");
     }
   </script>
+<section class="section" id="prompt-tool">
+  <h2>🤖 Creacto Prompt Generator</h2>
+  <p class="section-intro">Turn your idea into a ready-to-use AI prompt.</p>
 
+  <div class="card">
+    <input id="topic" type="text" placeholder="What do you want to create?"
+      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
+
+    <button onclick="generatePrompt()" class="button" style="border:0;cursor:pointer;">
+      Generate Prompt
+    </button>
+
+    <div id="result" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
+  </div>
+</section>
+
+<script>
+function generatePrompt() {
+  const topic = document.getElementById("topic").value.trim();
+  const result = document.getElementById("result");
+
+  if (!topic) {
+    result.textContent = "Please enter an idea first.";
+    return;
+  }
+
+  result.textContent =
+    "Create a high-quality, engaging piece of content about " +
+    topic +
+    ". Make it clear, creative, visually appealing, and suitable for a modern audience. Include a strong opening hook, useful details, and an engaging ending.";
+}
+</script>
 </body>
 </html>
