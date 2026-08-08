@@ -259,6 +259,77 @@ function generateScript() {
   }
 
   result.innerHTML = `
+    <h2>🎬 ${idea}</h2>
+
+    <h3>🪝 Hook</h3>
+    <p>What if one ordinary day could turn into the most magical adventure ever?</p>
+
+    <h3>📖 Story</h3>
+    <p>
+      Once upon a time, a little girl named Lulu discovered something
+      extraordinary. While exploring near her home, she found a mysterious
+      garden hidden behind an old wooden gate.
+    </p>
+
+    <p>
+      Lulu stepped inside and discovered colorful flowers, friendly animals,
+      and sparkling lights dancing through the trees. Every step revealed
+      something new and wonderful.
+    </p>
+
+    <p>
+      Soon, Lulu realized that the garden needed her help. She bravely followed
+      a glowing path and helped the animals find their way home. By working
+      together, they brought the magical garden back to life.
+    </p>
+
+    <h3>🎞️ Scenes</h3>
+
+    <p><strong>Scene 1:</strong> Lulu discovers the mysterious garden.</p>
+    <p><strong>AI Prompt:</strong> A cute little girl discovering a magical
+    garden behind an old wooden gate, colorful flowers, warm sunlight,
+    cinematic children's animation, 4K.</p>
+
+    <p><strong>Scene 2:</strong> Lulu meets the friendly animals.</p>
+    <p><strong>AI Prompt:</strong> A little girl meeting friendly rabbits,
+    birds and butterflies in a magical garden, colorful children's animation,
+    joyful atmosphere, 4K.</p>
+
+    <p><strong>Scene 3:</strong> Lulu follows the glowing path.</p>
+    <p><strong>AI Prompt:</strong> Little girl walking along a glowing magical
+    path through an enchanted garden, sparkling lights, fantasy children's
+    animation, cinematic, 4K.</p>
+
+    <p><strong>Scene 4:</strong> Lulu helps the animals.</p>
+    <p><strong>AI Prompt:</strong> Brave little girl helping cute animals in a
+    magical garden, emotional and heartwarming children's animation, 4K.</p>
+
+    <p><strong>Scene 5:</strong> The garden comes back to life.</p>
+    <p><strong>AI Prompt:</strong> Magical garden blooming with colorful flowers
+    and sparkling lights, happy animals celebrating with a little girl,
+    beautiful children's animation, 4K.</p>
+
+    <p><strong>Scene 6:</strong> Lulu returns home with a smile.</p>
+    <p><strong>AI Prompt:</strong> Happy little girl walking home at sunset
+    after a magical adventure, warm golden light, children's animated movie
+    style, 4K.</p>
+
+    <h3>🎙️ Voice-over Ending</h3>
+    <p>
+      And from that day on, Lulu knew that even the smallest act of kindness
+      could create the biggest magic. The end. ✨
+    </p>
+  `;
+}
+  const idea = document.getElementById("scriptIdea").value.trim();
+  const result = document.getElementById("scriptResult");
+
+  if (!idea) {
+    result.innerHTML = "Please enter an idea first.";
+    return;
+  }
+
+  result.innerHTML = `
     <h3>Your Script</h3>
     <p><strong>Hook:</strong> Imagine a little girl who discovers something amazing...</p>
     <p><strong>Story:</strong> ${idea}</p>
