@@ -209,10 +209,13 @@
       <div class="tools">
 
         <div class="card">
-          <div class="icon">📝</div>
-          <h3>Script Generator</h3>
-          <p>Create YouTube scripts from simple ideas.</p>
-        </div>
+  <div class="icon">📝</div>
+  <h3>Script Generator</h3>
+  <p>Create YouTube scripts from simple ideas.</p>
+  <textarea id="scriptIdea" placeholder="What do you want to create?"></textarea>
+  <button onclick="generateScript()">Generate Script</button>
+  <div id="scriptResult"></div>
+</div>
 
         <div class="card" onclick="openScriptGenerator()">
           <div class="icon">💡</div>
@@ -246,7 +249,22 @@
   <footer>
     <p>© 2026 Creacto. Create More. Build Faster.</p>
   </footer>
+function generateScript() {
+  const idea = document.getElementById("scriptIdea").value.trim();
+  const result = document.getElementById("scriptResult");
 
+  if (!idea) {
+    result.innerHTML = "Please enter an idea first.";
+    return;
+  }
+
+  result.innerHTML = `
+    <h3>Your Script</h3>
+    <p><strong>Hook:</strong> Imagine a little girl who discovers something amazing...</p>
+    <p><strong>Story:</strong> ${idea}</p>
+    <p><strong>Ending:</strong> And that was only the beginning of her wonderful adventure!</p>
+  `;
+}
   <script>
     function toggleTheme() {
       document.body.classList.toggle("light");
