@@ -375,7 +375,124 @@ function generatePrompt() {
     topic +
     ". Make it clear, creative, visually appealing, and suitable for a modern audience. Include a strong opening hook, useful details, and an engaging ending.";
 }
-function openScriptGenerator() {
+function generateScript() {
+  const idea = document.getElementById("scriptIdea").value.trim();
+  const result = document.getElementById("scriptResult");
+
+  if (!idea) {
+    result.innerHTML = "Please enter an idea first.";
+    return;
+  }
+
+  const title = idea.charAt(0).toUpperCase() + idea.slice(1);
+
+  result.innerHTML = `
+    <h2>🎬 ${title}</h2>
+
+    <h3>🪝 Hook</h3>
+    <p>
+      Have you ever wondered what would happen if an ordinary day suddenly
+      became the beginning of an incredible adventure?
+    </p>
+
+    <h3>📖 Story</h3>
+
+    <p>
+      One bright morning, ${idea} began an adventure that would never be
+      forgotten.
+    </p>
+
+    <p>
+      At first, everything seemed completely normal. But then something
+      unexpected happened. A mysterious sound came from nearby, and curiosity
+      made our hero stop and listen.
+    </p>
+
+    <p>
+      “Who could that be?” came a surprised voice.
+      Slowly, our hero followed the sound and discovered a wonderful secret.
+      It was the beginning of a journey filled with friendship, laughter,
+      courage and a little bit of magic.
+    </p>
+
+    <p>
+      Along the way, a difficult problem appeared. For a moment, it seemed
+      impossible to solve. But instead of giving up, our hero remembered an
+      important lesson: sometimes the biggest adventures require the smallest
+      acts of kindness.
+    </p>
+
+    <p>
+      With courage and teamwork, the problem was finally solved. Everyone
+      cheered, and the magical world around them seemed brighter than ever.
+    </p>
+
+    <p>
+      As the sun began to set, our hero smiled and headed home, knowing that
+      this was only the beginning of many more adventures to come.
+    </p>
+
+    <h3>💬 Dialogue</h3>
+    <p>
+      <strong>Hero:</strong> “I don't know what will happen, but I'm ready
+      to try!”</p>
+    <p>
+      <strong>Friend:</strong> “Don't worry. We'll figure it out together!”</p>
+    <p>
+      <strong>Hero:</strong> “You're right. Let's do this!”</p>
+
+    <h3>🎞️ Scene 1 — The Beginning</h3>
+    <p>
+      ${idea}, discovering that an ordinary day is about to become a magical
+      adventure. Colorful children's animation, expressive characters,
+      cinematic lighting, 4K.
+    </p>
+
+    <h3>🎞️ Scene 2 — The Mystery</h3>
+    <p>
+      A mysterious sound leads the characters toward a beautiful hidden
+      location. Magical atmosphere, colorful environment, children's animated
+      movie style, cinematic camera movement, 4K.
+    </p>
+
+    <h3>🎞️ Scene 3 — The Discovery</h3>
+    <p>
+      The characters discover something amazing and magical. Wonder and
+      excitement on their faces, vibrant colors, detailed children's
+      animation, cinematic lighting, 4K.
+    </p>
+
+    <h3>🎞️ Scene 4 — The Challenge</h3>
+    <p>
+      The characters face a difficult challenge but decide not to give up.
+      Emotional children's animation, dramatic but friendly atmosphere,
+      cinematic composition, 4K.
+    </p>
+
+    <h3>🎞️ Scene 5 — The Solution</h3>
+    <p>
+      Through teamwork and kindness, the characters solve the problem.
+      Everyone celebrates together, joyful magical environment, colorful
+      children's animation, 4K.
+    </p>
+
+    <h3>🎞️ Scene 6 — The Ending</h3>
+    <p>
+      The characters return home as the sun sets, smiling after their
+      incredible adventure. Warm golden light, peaceful children's animation,
+      cinematic sunset, 4K.
+    </p>
+
+    <h3>🎙️ Voice-over Ending</h3>
+    <p>
+      And so, the adventure came to an end. But our hero had learned something
+      very special: courage grows when we help others, and even the smallest
+      act of kindness can create a little bit of magic. ✨
+    </p>
+
+    <button onclick="copyScript()">📋 Copy Script</button>
+  `;
+}
   const box = document.getElementById("scriptIdea");
   if (box) {
     box.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -425,6 +542,19 @@ function openScriptGenerator() {
     <h3>🎙️ Voice-over Ending</h3>
     <p>And from that day forward, our hero knew that courage, kindness and imagination could make every adventure magical. ✨</p>
   `;
+}
+  function copyScript() {
+  const result = document.getElementById("scriptResult");
+
+  if (!result) return;
+
+  const text = result.innerText;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Script copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the script. Please select and copy it manually.");
+  });
 }
 </script>
 </body>
