@@ -381,107 +381,129 @@ function generateScript() {
     return;
   }
 
+  let hero = "Lulu";
+  let friend = "a magical talking rabbit";
+
+  if (idea.toLowerCase().includes("lulu")) {
+    hero = "Lulu";
+  }
+
+  if (idea.toLowerCase().includes("rabbit")) {
+    friend = "a magical talking rabbit";
+  }
+
   result.innerHTML = `
     <h2>🎬 ${idea}</h2>
 
     <h3>🪝 Hook</h3>
     <p>
-      What if ${idea} turned an ordinary day into an adventure that nobody
-      could have imagined?
+      What if an ordinary day suddenly became the beginning of the most
+      magical adventure ever?
     </p>
 
     <h3>📖 Story</h3>
 
     <p>
-      It was a beautiful morning when ${idea} suddenly became the beginning
-      of something extraordinary. At first, everything seemed normal, but
-      then a mysterious surprise changed everything.
+      One beautiful morning, ${hero} was walking through the countryside
+      when she heard a strange voice coming from behind a tree.
     </p>
 
     <p>
-      “Wait... did you see that?” our hero asked.
-      A magical clue appeared, pointing toward a secret adventure.
-      There was only one choice: follow it and discover where it would lead.
+      “Hey! Over here!” the voice called.
+      ${hero} stopped and looked around in surprise.
+      “Who said that?”
     </p>
 
     <p>
-      The journey led through a wonderful magical world filled with
-      colorful places, friendly characters and unexpected surprises.
-      But soon, our hero discovered that something was wrong.
+      Suddenly, ${friend} hopped out from behind the tree.
+      “Me!” said the rabbit. “And I need your help!”
     </p>
 
     <p>
-      A difficult challenge stood in the way. For a moment, it seemed
-      impossible to continue. But our hero remembered that courage doesn't
-      mean never being afraid. It means trying even when you are afraid.
+      ${hero} couldn't believe her ears. A talking rabbit was standing right
+      in front of her! But before she could ask another question, the rabbit
+      revealed that something mysterious was happening in the magical forest.
     </p>
 
     <p>
-      With the help of a new friend, our hero found the courage to keep
-      going. Together they solved the problem using teamwork, kindness
-      and imagination.
+      Together, ${hero} and the rabbit entered the forest. They discovered
+      glowing flowers, sparkling streams and friendly magical creatures.
+      But deep inside the forest, they found a problem that needed to be
+      solved.
     </p>
 
     <p>
-      When everything was finally safe, the magical world seemed brighter
-      than before. Our hero smiled, knowing that this adventure had taught
-      an important lesson that would never be forgotten.
+      At first, the challenge seemed impossible. ${hero} was nervous, but
+      the rabbit reminded her that courage means trying even when you are
+      afraid.
+    </p>
+
+    <p>
+      Working together, ${hero} and her new friend used kindness, courage
+      and imagination to solve the problem. The magical forest became bright
+      again, and everyone celebrated.
+    </p>
+
+    <p>
+      As the sun began to set, ${hero} smiled at her new friend.
+      She knew this was an adventure she would never forget.
     </p>
 
     <h3>💬 Dialogue</h3>
 
-    <p><strong>Hero:</strong> “Something magical is happening!”</p>
-    <p><strong>Friend:</strong> “Then let's find out what it is!”</p>
-    <p><strong>Hero:</strong> “Together?”</p>
-    <p><strong>Friend:</strong> “Together!”</p>
+    <p><strong>${hero}:</strong> “Wait... you can talk?”</p>
+    <p><strong>Rabbit:</strong> “Of course! And I really need your help!”</p>
+    <p><strong>${hero}:</strong> “Then let's go. We'll solve this together!”</p>
+    <p><strong>Rabbit:</strong> “That's the spirit!”</p>
 
-    <h3>🎞️ Scene 1 — The Discovery</h3>
+    <h3>🎞️ Scene 1 — The Mysterious Voice</h3>
     <p>
-      ${idea} begins when the main character discovers something mysterious.
-      Bright colorful children's animation, expressive characters, magical
-      atmosphere, cinematic lighting, 4K.
+      ${hero} walking through a beautiful countryside when she hears a
+      mysterious voice coming from behind a tree. Children's animated movie
+      style, colorful environment, expressive character, cinematic lighting,
+      4K.
     </p>
 
-    <h3>🎞️ Scene 2 — The Magical Clue</h3>
+    <h3>🎞️ Scene 2 — The Talking Rabbit</h3>
     <p>
-      The characters discover a magical clue that leads them toward a
-      mysterious adventure. Wonder and excitement, colorful environment,
-      cinematic children's animation, 4K.
+      ${friend} hops out from behind a tree and surprises ${hero}.
+      Magical talking rabbit, joyful expressions, colorful children's
+      animation, cinematic camera movement, 4K.
     </p>
 
-    <h3>🎞️ Scene 3 — The Magical World</h3>
+    <h3>🎞️ Scene 3 — Entering the Magical Forest</h3>
     <p>
-      The characters enter a beautiful magical world filled with colorful
-      landscapes and friendly creatures. Fantasy children's animation,
-      vibrant colors, cinematic camera movement, 4K.
+      ${hero} and the magical rabbit enter an enchanting forest filled with
+      glowing flowers, sparkling streams and friendly magical creatures.
+      Fantasy children's animation, vibrant colors, cinematic lighting, 4K.
     </p>
 
     <h3>🎞️ Scene 4 — The Challenge</h3>
     <p>
-      A difficult challenge blocks the characters' path. They look worried
-      but determined to continue. Emotional children's animation, dramatic
-      but friendly atmosphere, cinematic lighting, 4K.
+      ${hero} and the rabbit discover a mysterious problem deep inside the
+      magical forest. They look worried but determined. Emotional children's
+      animation, dramatic but friendly atmosphere, cinematic composition, 4K.
     </p>
 
     <h3>🎞️ Scene 5 — Teamwork</h3>
     <p>
-      The characters work together using courage, kindness and imagination
-      to solve the problem. Happy expressions, magical environment,
-      colorful cinematic children's animation, 4K.
+      ${hero} and her magical rabbit friend work together using courage,
+      kindness and imagination to solve the problem. Bright magical world,
+      happy expressions, colorful cinematic children's animation, 4K.
     </p>
 
-    <h3>🎞️ Scene 6 — The Happy Ending</h3>
+    <h3>🎞️ Scene 6 — The Magical Ending</h3>
     <p>
-      The characters celebrate after completing their adventure as the sun
-      sets behind them. Warm golden lighting, peaceful magical atmosphere,
-      emotional children's animation, cinematic sunset, 4K.
+      ${hero} and the talking rabbit celebrate as the magical forest becomes
+      bright again. Beautiful sunset, warm golden lighting, peaceful magical
+      atmosphere, emotional children's animation, cinematic 4K.
     </p>
 
     <h3>🎙️ Voice-over Ending</h3>
     <p>
-      And from that day forward, our hero remembered that the greatest
-      adventures are made with courage, kindness, friendship and imagination.
-      ✨
+      And from that day forward, ${hero} knew that the best adventures are
+      the ones shared with a true friend. And sometimes, the most magical
+      friendships begin with a simple “Hello.” ✨
     </p>
   `;
 }
