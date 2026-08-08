@@ -302,7 +302,27 @@ function generatePrompt() {
     ". Make it clear, creative, visually appealing, and suitable for a modern audience. Include a strong opening hook, useful details, and an engaging ending.";
 }
 function openScriptGenerator() {
-  alert("Creacto Script Generator is coming next! 🚀");
+  const box = document.getElementById("scriptIdea");
+  if (box) {
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    box.focus();
+  }
+}
+  function generateScript() {
+  const idea = document.getElementById("scriptIdea").value.trim();
+  const result = document.getElementById("scriptResult");
+
+  if (!idea) {
+    result.innerHTML = "Please enter an idea first.";
+    return;
+  }
+
+  result.innerHTML = `
+    <h3>Your Script</h3>
+    <p><strong>Hook:</strong> Imagine a little girl who discovers something amazing...</p>
+    <p><strong>Story:</strong> ${idea}</p>
+    <p><strong>Ending:</strong> And that was only the beginning of her wonderful adventure!</p>
+  `;
 }
 </script>
 </body>
