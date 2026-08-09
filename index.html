@@ -520,7 +520,23 @@ const rabbitLook =
       the ones shared with a true friend. And sometimes, the most magical
       friendships begin with a simple “Hello.” ✨
     </p>
+    <button onclick="copyScript()" class="button" style="border:0;cursor:pointer;">
+  📋 Copy Script
+</button>
   `;
+}
+  function copyScript() {
+  const result = document.getElementById("scriptResult");
+
+  if (!result) return;
+
+  const text = result.innerText;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Script copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the script. Please select and copy it manually.");
+  });
 }
   </script>
 </body>
