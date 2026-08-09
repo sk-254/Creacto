@@ -584,13 +584,92 @@ function copyCreateVideoPrompt() {
       style="border:0;cursor:pointer;">
       📋 Copy All 6 Scenes
     </button>
+    <div style="margin-top:15px;">
+  <button onclick="prepareClip(1)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 1
+  </button>
+
+  <button onclick="prepareClip(2)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 2
+  </button>
+
+  <button onclick="prepareClip(3)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 3
+  </button>
+
+  <button onclick="prepareClip(4)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 4
+  </button>
+
+  <button onclick="prepareClip(5)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 5
+  </button>
+
+  <button onclick="prepareClip(6)" class="button"
+    style="border:0;cursor:pointer;margin:4px;">
+    🎥 Scene 6
+  </button>
+</div>
+
+<div id="clipResult"
+  style="margin-top:20px;color:#a8acbb;line-height:1.6;">
+</div>
     <button onclick="openFreeVideoWorkflow()" class="button"
   style="border:0;cursor:pointer;margin-top:10px;">
   🎬 Make Lulu Video
 </button>
   `;
 }
+function prepareClip(sceneNumber) {
+  const result = document.getElementById("clipResult");
 
+  if (!result) return;
+
+  const scenes = {
+    1: "Lulu walks through a beautiful countryside and hears a mysterious voice coming from behind a tree.",
+    2: "Lulu meets the small white magical talking rabbit for the first time. The rabbit hops out from behind a tree and surprises her.",
+    3: "Lulu and the magical talking rabbit enter a beautiful magical forest filled with glowing flowers, sparkling streams and friendly magical creatures.",
+    4: "Lulu and the magical talking rabbit discover a mysterious problem deep inside the forest. A dark magical cloud surrounds an ancient glowing tree.",
+    5: "Lulu and the magical talking rabbit work together to break the magical spell. Bright golden light fills the forest as the dark cloud disappears.",
+    6: "Lulu and the magical talking rabbit stand together as the sun sets. Glowing flowers shine around them while magical creatures celebrate."
+  };
+
+  result.innerHTML = `
+    <h3>🎥 Scene ${sceneNumber} Clip Ready</h3>
+
+    <p>
+      ${scenes[sceneNumber]}
+    </p>
+
+    <p>
+      <strong>Style:</strong> cinematic children's animation, 4K,
+      smooth camera movement, expressive characters, colorful environment,
+      warm lighting, detailed animation, consistent character design.
+    </p>
+
+    <button onclick="copyClipPrompt(${sceneNumber})"
+      class="button" style="border:0;cursor:pointer;">
+      📋 Copy Scene ${sceneNumber} Prompt
+    </button>
+  `;
+}
+
+function copyClipPrompt(sceneNumber) {
+  const result = document.getElementById("clipResult");
+
+  if (!result) return;
+
+  navigator.clipboard.writeText(result.innerText).then(() => {
+    alert("Scene " + sceneNumber + " prompt copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the prompt. Please copy it manually.");
+  });
+}
 function copyScenes() {
   const result = document.getElementById("sceneResult");
 
