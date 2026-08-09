@@ -356,8 +356,60 @@ function generateScript() {
     <div id="result" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
   </div>
 </section>
+<section class="section" id="video-prompt-tool">
+  <h2>🎬 Video Prompt Generator</h2>
+  <p class="section-intro">Turn your story idea into a ready-to-use AI video prompt.</p>
 
+  <div class="card">
+    <input id="videoIdea" type="text"
+      placeholder="Example: Lulu meets the magical rabbit"
+      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
+
+    <button onclick="generateVideoPrompt()" class="button" style="border:0;cursor:pointer;">
+      🎥 Generate Video Prompt
+    </button>
+
+    <div id="videoResult" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
+  </div>
+</section>
 <script>
+function generateVideoPrompt() {
+  const idea = document.getElementById("videoIdea").value.trim();
+  const result = document.getElementById("videoResult");
+
+  if (!idea) {
+    result.textContent = "Please enter a scene idea first.";
+    return;
+  }
+
+  result.innerHTML = `
+    <h3>🎬 Your AI Video Prompt</h3>
+    <p>
+      ${idea}. Create a high-quality cinematic children's animated video
+      in 4K. Keep the characters visually consistent throughout the scene.
+      Use expressive facial emotions, smooth natural movement, colorful
+      environments, cinematic camera movement, warm lighting and detailed
+      animation. Make the scene magical, engaging and suitable for children.
+    </p>
+
+    <button onclick="copyVideoPrompt()" class="button"
+      style="border:0;cursor:pointer;">
+      📋 Copy Video Prompt
+    </button>
+  `;
+}
+
+function copyVideoPrompt() {
+  const result = document.getElementById("videoResult");
+
+  if (!result) return;
+
+  navigator.clipboard.writeText(result.innerText).then(() => {
+    alert("Video prompt copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the prompt. Please copy it manually.");
+  });
+}
 function generatePrompt() {
   const topic = document.getElementById("topic").value.trim();
   const result = document.getElementById("result");
