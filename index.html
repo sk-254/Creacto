@@ -389,7 +389,78 @@ function generateScript() {
     </div>
   </div>
 </section>
+  <section class="section" id="video-maker">
+  <h2>🎥 Video Maker</h2>
+  <p class="section-intro">
+    Turn your scene prompts into a video project.
+  </p>
+
+  <div class="card">
+    <h3>🎞️ Choose a Scene</h3>
+
+    <select id="videoScene"
+      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
+      <option value="1">Scene 1 — The Mysterious Voice</option>
+      <option value="2">Scene 2 — The Talking Rabbit</option>
+      <option value="3">Scene 3 — The Magical Forest</option>
+      <option value="4">Scene 4 — The Challenge</option>
+      <option value="5">Scene 5 — Teamwork</option>
+      <option value="6">Scene 6 — The Magical Ending</option>
+    </select>
+
+    <button onclick="prepareVideoScene()" class="button"
+      style="border:0;cursor:pointer;">
+      🎬 Prepare Scene
+    </button>
+
+    <div id="videoMakerResult"
+      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
+    </div>
+  </div>
+</section>
 <script>
+  function prepareVideoScene() {
+  const scene = document.getElementById("videoScene").value;
+  const result = document.getElementById("videoMakerResult");
+
+  const scenes = {
+    1: "Lulu walks through the countryside and hears a mysterious voice behind a tree.",
+    2: "Lulu meets the small white magical talking rabbit for the first time.",
+    3: "Lulu and the rabbit enter the beautiful magical forest together.",
+    4: "Lulu and the rabbit discover a mysterious problem deep inside the forest.",
+    5: "Lulu and the rabbit work together to break the magical spell.",
+    6: "Lulu and the rabbit celebrate together as the sun sets."
+  };
+
+  result.innerHTML = `
+    <h3>🎬 Scene ${scene} Ready</h3>
+    <p>${scenes[scene]}</p>
+
+    <p>
+      <strong>Video settings:</strong>
+      Children's animated movie style, 4K, smooth cinematic camera movement,
+      expressive characters, colorful environment, warm lighting,
+      consistent character design.
+    </p>
+
+    <button onclick="copyPreparedScene()" class="button"
+      style="border:0;cursor:pointer;">
+      📋 Copy Scene Prompt
+    </button>
+  `;
+}
+
+function copyPreparedScene() {
+  const result = document.getElementById("videoMakerResult");
+
+  if (!result) return;
+
+  navigator.clipboard.writeText(result.innerText).then(() => {
+    alert("Scene prompt copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the scene. Please copy it manually.");
+  });
+}
   function generateLuluScenes() {
   const result = document.getElementById("sceneResult");
 
