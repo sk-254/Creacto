@@ -419,29 +419,33 @@ function generateScript() {
   </div>
 </section>
 <script>
-  function prepareVideoScene() {
+function prepareVideoScene() {
   const scene = document.getElementById("videoScene").value;
   const result = document.getElementById("videoMakerResult");
 
+  const luluLook =
+    "Lulu, an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack";
+
+  const rabbitLook =
+    "a small white magical talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant";
+
   const scenes = {
-    1: "Lulu walks through the countryside and hears a mysterious voice behind a tree.",
-    2: "Lulu meets the small white magical talking rabbit for the first time.",
-    3: "Lulu and the rabbit enter the beautiful magical forest together.",
-    4: "Lulu and the rabbit discover a mysterious problem deep inside the forest.",
-    5: "Lulu and the rabbit work together to break the magical spell.",
-    6: "Lulu and the rabbit celebrate together as the sun sets."
+    1: `${luluLook} walks through a beautiful countryside when she hears a mysterious voice coming from behind a tree. Colorful children's animation, expressive character, cinematic lighting, smooth camera movement, consistent character design, 4K.`,
+
+    2: `${luluLook} meets ${rabbitLook} for the first time. The rabbit hops out from behind a tree and surprises Lulu. Lulu looks amazed while the rabbit smiles and speaks to her. Magical countryside, colorful children's animation, expressive characters, cinematic camera movement, consistent character design, 4K.`,
+
+    3: `${luluLook} and ${rabbitLook} enter a beautiful magical forest together. Glowing flowers, sparkling streams, colorful trees and friendly magical creatures surround them. Lulu looks amazed while the rabbit guides her deeper into the forest. Fantasy children's animation, vibrant colors, cinematic camera movement, consistent character design, 4K.`,
+
+    4: `${luluLook} and ${rabbitLook} discover a mysterious problem deep inside the magical forest. Lulu looks worried while the rabbit encourages her to be brave. A dark magical cloud surrounds an ancient glowing tree. Emotional but child-friendly atmosphere, cinematic lighting, consistent character design, 4K.`,
+
+    5: `${luluLook} and ${rabbitLook} work together to break the magical spell surrounding the ancient tree. Lulu reaches toward the glowing tree while the rabbit uses its magical golden pendant. Bright golden light fills the forest as the dark cloud disappears. Happy magical children's animation, cinematic lighting, consistent character design, 4K.`,
+
+    6: `${luluLook} and ${rabbitLook} stand together in the peaceful magical forest as the sun sets. Glowing flowers shine around them while magical creatures celebrate. Lulu smiles at her new rabbit friend, knowing they will share many more adventures. Warm golden sunset, beautiful children's animation, emotional ending, cinematic lighting, consistent character design, 4K.`
   };
 
   result.innerHTML = `
     <h3>🎬 Scene ${scene} Ready</h3>
     <p>${scenes[scene]}</p>
-
-    <p>
-      <strong>Video settings:</strong>
-      Children's animated movie style, 4K, smooth cinematic camera movement,
-      expressive characters, colorful environment, warm lighting,
-      consistent character design.
-    </p>
 
     <button onclick="copyPreparedScene()" class="button"
       style="border:0;cursor:pointer;">
