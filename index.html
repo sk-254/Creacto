@@ -418,6 +418,27 @@ function generateScript() {
     </div>
   </div>
 </section>
+  <section class="section" id="create-video">
+  <h2>🎬 Create Video</h2>
+  <p class="section-intro">
+    Turn your prepared scene prompt into an AI video.
+  </p>
+
+  <div class="card">
+    <textarea id="videoPrompt"
+      placeholder="Your video prompt will appear here..."
+      style="width:100%;min-height:180px;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;resize:vertical;"></textarea>
+
+    <button onclick="createVideo()" class="button"
+      style="border:0;cursor:pointer;">
+      🎬 Create Video
+    </button>
+
+    <div id="videoCreateResult"
+      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
+    </div>
+  </div>
+</section>
 <script>
 function prepareVideoScene() {
   const scene = document.getElementById("videoScene").value;
@@ -463,6 +484,42 @@ function copyPreparedScene() {
     alert("Scene prompt copied! 📋");
   }).catch(() => {
     alert("Could not copy the scene. Please copy it manually.");
+  });
+}
+  function createVideo() {
+  const prompt = document.getElementById("videoPrompt").value.trim();
+  const result = document.getElementById("videoCreateResult");
+
+  if (!prompt) {
+    result.textContent = "Please paste a video prompt first.";
+    return;
+  }
+
+  result.innerHTML = `
+    <h3>🎬 Video Ready to Generate</h3>
+    <p>Your scene prompt has been prepared successfully.</p>
+
+    <p>
+      <strong>Next step:</strong> Connect Creacto to an AI video-generation
+      service to turn this prompt into an actual video.
+    </p>
+
+    <button onclick="copyCreateVideoPrompt()" class="button"
+      style="border:0;cursor:pointer;">
+      📋 Copy Video Prompt
+    </button>
+  `;
+}
+
+function copyCreateVideoPrompt() {
+  const prompt = document.getElementById("videoPrompt");
+
+  if (!prompt) return;
+
+  navigator.clipboard.writeText(prompt.value).then(() => {
+    alert("Video prompt copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the prompt. Please copy it manually.");
   });
 }
   function generateLuluScenes() {
