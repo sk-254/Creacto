@@ -372,7 +372,100 @@ function generateScript() {
     <div id="videoResult" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
   </div>
 </section>
+  <section class="section" id="scene-generator">
+  <h2>🎬 Lulu 6-Scene Video Builder</h2>
+  <p class="section-intro">
+    Generate six connected video prompts for your Lulu adventure.
+  </p>
+
+  <div class="card">
+    <button onclick="generateLuluScenes()" class="button"
+      style="border:0;cursor:pointer;">
+      🎥 Generate 6 Scenes
+    </button>
+
+    <div id="sceneResult"
+      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
+    </div>
+  </div>
+</section>
 <script>
+  function generateLuluScenes() {
+  const result = document.getElementById("sceneResult");
+
+  if (!result) return;
+
+  const luluLook =
+    "Lulu, an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack";
+
+  const rabbitLook =
+    "a small white magical talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant";
+
+  result.innerHTML = `
+    <h3>🎞️ Scene 1 — The Mysterious Voice</h3>
+    <p>
+      ${luluLook} walks through a beautiful countryside and hears a mysterious
+      voice coming from behind a tree. Colorful children's animation, cinematic
+      lighting, smooth camera movement, consistent character design, 4K.
+    </p>
+
+    <h3>🎞️ Scene 2 — The Talking Rabbit</h3>
+    <p>
+      ${luluLook} meets ${rabbitLook} for the first time. The rabbit hops out
+      from behind a tree and surprises Lulu. Magical countryside, expressive
+      characters, cinematic camera movement, consistent character design, 4K.
+    </p>
+
+    <h3>🎞️ Scene 3 — The Magical Forest</h3>
+    <p>
+      ${luluLook} and ${rabbitLook} enter a beautiful magical forest together.
+      Glowing flowers, sparkling streams and friendly magical creatures surround
+      them. Fantasy children's animation, vibrant colors, cinematic movement,
+      consistent character design, 4K.
+    </p>
+
+    <h3>🎞️ Scene 4 — The Challenge</h3>
+    <p>
+      ${luluLook} and ${rabbitLook} discover a mysterious problem deep inside
+      the magical forest. A dark magical cloud surrounds an ancient glowing
+      tree. Emotional but child-friendly atmosphere, cinematic lighting,
+      consistent character design, 4K.
+    </p>
+
+    <h3>🎞️ Scene 5 — Teamwork</h3>
+    <p>
+      ${luluLook} and ${rabbitLook} work together to break the magical spell.
+      Lulu reaches toward the glowing tree while the rabbit uses its golden
+      pendant. Bright golden light fills the forest. Magical children's
+      animation, cinematic lighting, consistent character design, 4K.
+    </p>
+
+    <h3>🎞️ Scene 6 — The Magical Ending</h3>
+    <p>
+      ${luluLook} and ${rabbitLook} stand together as the sun sets. Glowing
+      flowers shine around them while magical creatures celebrate. Lulu smiles
+      at her new friend. Warm golden sunset, emotional children's animation,
+      cinematic lighting, consistent character design, 4K.
+    </p>
+
+    <button onclick="copyScenes()" class="button"
+      style="border:0;cursor:pointer;">
+      📋 Copy All 6 Scenes
+    </button>
+  `;
+}
+
+function copyScenes() {
+  const result = document.getElementById("sceneResult");
+
+  if (!result) return;
+
+  navigator.clipboard.writeText(result.innerText).then(() => {
+    alert("All 6 scene prompts copied! 📋");
+  }).catch(() => {
+    alert("Could not copy the scenes. Please copy them manually.");
+  });
+}
 function generateVideoPrompt() {
   const idea = document.getElementById("videoIdea").value.trim();
   const result = document.getElementById("videoResult");
