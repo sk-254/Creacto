@@ -598,6 +598,16 @@ function copyScenes() {
     alert("Could not copy the scenes. Please copy them manually.");
   });
 }
+  function openFreeVideoWorkflow() {
+  const result = document.getElementById("sceneResult");
+
+  if (!result) {
+    alert("Generate the six scenes first.");
+    return;
+  }
+
+  alert("Your six Lulu video scenes are ready! 🎬🐰 Copy them and create each scene as a separate video clip.");
+}
 function generateVideoPrompt() {
   const idea = document.getElementById("videoIdea").value.trim();
   const result = document.getElementById("videoResult");
