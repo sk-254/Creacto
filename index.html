@@ -1,201 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creacto — Create More. Build Faster.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b13">
+  <title>Creacto — make a video from your idea</title>
+  <meta name="description" content="Turn a creative idea into an AI video with Creacto.">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #08090d;
-      color: #fff;
-      min-height: 100vh;
-    }
-    header, main, footer {
-      width: min(100% - 32px, 1000px);
-      margin: auto;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-    }
-    .logo { font-size: 25px; font-weight: 800; }
-    .logo span, h1 span { color: #a475ff; }
-    button, textarea, select { font: inherit; }
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 18px;
-      background: #8d5cf6;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover { background: #7545df; }
-    .theme {
-      border: 1px solid #333644;
-      background: #151722;
-      border-radius: 50px;
-      padding: 9px 14px;
-    }
-    .hero {
-      text-align: center;
-      padding: 65px 0 38px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid #44356d;
-      border-radius: 50px;
-      color: #c9b2ff;
-      background: #19152a;
-    }
-    h1 {
-      font-size: clamp(42px, 9vw, 72px);
-      line-height: 1.04;
-      margin: 22px 0 16px;
-    }
-    .hero p, .intro { color: #a8acbb; line-height: 1.6; }
-    .panel {
-      margin: 24px 0 60px;
-      padding: 26px;
-      border: 1px solid #292c38;
-      border-radius: 18px;
-      background: #12141c;
-    }
-    label { display: block; margin: 18px 0 8px; font-weight: bold; }
-    textarea, select {
-      width: 100%;
-      padding: 14px;
-      color: white;
-      background: #08090d;
-      border: 1px solid #333644;
-      border-radius: 10px;
-    }
-    textarea { min-height: 115px; resize: vertical; }
-    .actions { display: flex; gap: 10px; margin-top: 16px; }
-    .secondary { background: #292c38; }
-    #storyResult { margin-top: 26px; }
-    .story-part {
-      margin: 14px 0;
-      padding: 16px;
-      border-left: 3px solid #8d5cf6;
-      border-radius: 8px;
-      background: #0b0d13;
-      line-height: 1.6;
-    }
-    .story-part h3 { margin: 0 0 6px; }
-    .hint { color: #a8acbb; font-size: 14px; }
-    footer {
-      padding: 28px 0;
-      border-top: 1px solid #222530;
-      color: #777c8d;
-      text-align: center;
-    }
-    body.light { background: #f7f7fb; color: #11131a; }
-    body.light .panel { background: white; border-color: #e2e3ea; }
-    body.light textarea, body.light select { background: white; color: #11131a; }
-    body.light .story-part { background: #f1eff8; }
-    body.light .hero p, body.light .intro, body.light .hint { color: #626776; }
+    :root { color-scheme: dark; --bg:#0b0b13; --panel:#141420; --line:#29283a; --ink:#f7f5ff; --muted:#a7a3b8; --purple:#a78bfa; --pink:#f0abfc; --good:#86efac; --bad:#fda4af; }
+    * { box-sizing:border-box }
+    body { margin:0; min-height:100vh; color:var(--ink); background:radial-gradient(ellipse at 50% -15%,#30234f 0,transparent 45%),var(--bg); font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif }
+    button,input,textarea { font:inherit }
+    a { color:#c4b5fd }
+    .wrap { width:min(1020px,calc(100% - 32px)); margin:auto }
+    header { height:76px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #ffffff12 }
+    .brand { color:var(--ink); font-size:1.35rem; font-weight:850; letter-spacing:-.06em; text-decoration:none }
+    .brand span { color:var(--purple) }
+    .tiny { color:var(--muted); font-size:.84rem }
+    .hero { padding:62px 0 30px; text-align:center }
+    .badge { display:inline-flex; align-items:center; gap:8px; color:#e9ddff; border:1px solid #8b5cf64d; background:#7c3aed1b; border-radius:99px; padding:6px 12px; font-size:.83rem }
+    h1 { margin:18px 0 12px; font-size:clamp(2.4rem,7vw,4.7rem); line-height:1.03; letter-spacing:-.065em }
+    h1 span { color:var(--purple) }
+    .hero p { color:var(--muted); max-width:610px; margin:0 auto }
+    main { padding-bottom:70px }
+    .studio { display:grid; grid-template-columns:1fr .85fr; gap:18px; margin-top:22px; align-items:start }
+    .card { border:1px solid var(--line); border-radius:20px; background:linear-gradient(145deg,#181724f5,#11111af5); box-shadow:0 18px 60px #0003; padding:24px }
+    h2 { margin:0 0 4px; font-size:1.24rem; letter-spacing:-.025em }
+    .sub { margin:0 0 20px; color:var(--muted); font-size:.92rem }
+    label { display:block; margin:16px 0 7px; font-size:.88rem; font-weight:650 }
+    textarea,input[type=password] { width:100%; border:1px solid #373448; border-radius:12px; background:#0d0d16; color:var(--ink); padding:12px 14px; outline:none }
+    textarea:focus,input:focus { border-color:#9b7afa; box-shadow:0 0 0 3px #8b5cf622 }
+    textarea { min-height:155px; resize:vertical }
+    .hint { color:var(--muted); font-size:.8rem; margin:7px 0 0 }
+    .keyrow { display:flex; gap:8px }
+    .keyrow input { min-width:0 }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 16px; border:0; border-radius:12px; color:white; font-weight:750; cursor:pointer; background:linear-gradient(100deg,#7c3aed,#a855f7) }
+    .btn:hover { filter:brightness(1.1) }
+    .btn:disabled { opacity:.55; cursor:wait }
+    .btn.secondary { background:#222130; border:1px solid #39364c; color:#e9e5f5 }
+    .btn.clear { min-width:74px; font-size:.86rem }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px }
+    .notice { margin-top:16px; padding:12px 14px; border-radius:12px; color:#d6cfff; background:#8b5cf614; border:1px solid #8b5cf633; font-size:.83rem }
+    .status { min-height:25px; margin:14px 0 0; color:var(--muted); font-size:.9rem }
+    .status.error { color:var(--bad) }
+    .status.success { color:var(--good) }
+    .video-box { min-height:300px; display:grid; place-items:center; overflow:hidden; border:1px dashed #464257; border-radius:16px; background:radial-gradient(ellipse at center,#25203a,#101018 70%); color:var(--muted); text-align:center; padding:18px }
+    video { display:none; width:100%; max-height:540px; border-radius:12px; background:#000 }
+    .video-box.ready { display:block; padding:8px; border-style:solid }
+    .video-box.ready video { display:block }
+    .empty-icon { font-size:2.2rem; margin-bottom:6px }
+    .download { margin-top:12px; display:none }
+    .help { margin-top:20px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem }
+    details { margin-top:14px; color:var(--muted); font-size:.84rem }
+    summary { color:#ded9ee; cursor:pointer; font-weight:650 }
+    footer { padding:23px 0 34px; border-top:1px solid #ffffff12; color:#858196; font-size:.8rem; text-align:center }
+    @media(max-width:760px) { .studio { grid-template-columns:1fr } .hero { padding-top:46px } .card { padding:19px } .video-box { min-height:230px } }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Crea<span>cto</span></div>
-    <button class="theme secondary" type="button" onclick="toggleTheme()">☀️ / 🌙</button>
-  </header>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#top">Crea<span>cto</span></a>
+      <span class="tiny">Create more. Build faster.</span>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div class="badge">✦ Your idea, in motion</div>
+        <h1>Make a video<br><span>from your idea.</span></h1>
+        <p>Write a scene, connect your own Hugging Face token, and generate a video with an open text-to-video model.</p>
+      </section>
 
-  <main>
-    <section class="hero">
-      <div class="badge">✨ Your ideas, your stories</div>
-      <h1>Create More.<br><span>Build Your Story.</span></h1>
-      <p>Start with an idea and shape it into a story outline with your own characters, setting, and ending.</p>
-    </section>
+      <section class="studio" aria-label="Video creation studio">
+        <div class="card">
+          <h2>🎬 Create a video</h2>
+          <p class="sub">Describe one short scene. Detailed prompts usually work best.</p>
 
-    <section class="panel">
-      <h2>Story Builder</h2>
-      <p class="intro">Enter a story idea. Creacto will give you a six-part outline to make your own.</p>
+          <label for="ideaInput">Start with a simple idea</label>
+          <div class="keyrow">
+            <input id="ideaInput" type="text" maxlength="1500" autocomplete="off" placeholder="Lulu meets a magical rabbit">
+            <button class="btn secondary" id="buildPrompt" type="button">Build prompt</button>
+          </div>
+          <p class="hint">This creates a prompt in your browser; video generation happens when you press Generate video.</p>
 
-      <label for="storyIdea">What is your story idea?</label>
-      <textarea id="storyIdea" placeholder="Example: A young musician finds a door that opens to yesterday"></textarea>
+          <label for="videoPrompt">Your scene prompt</label>
+          <textarea id="videoPrompt" maxlength="1800" placeholder="Example: Lulu, an 8-year-old girl with curly black hair and a yellow dress, meets a tiny white rabbit beside a sparkling forest stream. The rabbit waves. Colorful family-friendly animation, gentle camera push-in, warm afternoon light."></textarea>
+          <p class="hint"><span id="promptCount">0</span>/1800 characters</p>
 
-      <label for="genre">Choose a style</label>
-      <select id="genre">
-        <option>Adventure</option>
-        <option>Fantasy</option>
-        <option>Mystery</option>
-        <option>Comedy</option>
-        <option>Science fiction</option>
-        <option>Drama</option>
-        <option>Any style</option>
-      </select>
+          <label for="hfToken">Your Hugging Face access token</label>
+          <div class="keyrow">
+            <input id="hfToken" type="password" autocomplete="off" spellcheck="false" placeholder="hf_…" aria-describedby="tokenHint">
+            <button class="btn secondary clear" id="clearToken" type="button">Clear</button>
+          </div>
+          <p class="hint" id="tokenHint">Use a fine-grained token with “Make calls to Inference Providers” permission. <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener noreferrer">Create a token ↗</a></p>
 
-      <div class="actions">
-        <button type="button" onclick="buildStory()">Build My Outline</button>
-        <button type="button" class="secondary" onclick="copyStory()">Copy</button>
-      </div>
-      <p class="hint">Your idea stays in this browser. Add your own names, details, and dialogue to every part.</p>
+          <div class="notice">Creacto does not save your token. It stays in this page and is sent to Hugging Face to make your request. Generation uses your Hugging Face credits or balance; charges may apply after free credits run out.</div>
+          <div class="actions">
+            <button class="btn" id="generateVideo" type="button">✨ Generate video</button>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+          <details>
+            <summary>How the connection works</summary>
+            <p>Your token is kept only in this page’s memory and is not written to browser storage or Creacto’s server. Creacto sends it directly from your browser to Hugging Face. Use a token with only the permissions needed for inference, and clear it when you finish.</p>
+          </details>
+        </div>
 
-      <div id="storyResult" aria-live="polite"></div>
-    </section>
-  </main>
+        <div class="card">
+          <h2>Your video</h2>
+          <p class="sub">The finished clip will appear here.</p>
+          <div class="video-box" id="videoBox">
+            <div id="emptyState"><div class="empty-icon">▧</div><div>Your generated video will show here.</div></div>
+            <video id="videoPreview" controls playsinline></video>
+          </div>
+          <a class="btn secondary download" id="downloadVideo" download="creacto-video.mp4">↓ Download video</a>
+          <div class="help">
+            <strong style="color:#e9e5f5">Using your own account</strong><br>
+            Creacto uses Hugging Face Inference Providers and the Wan 2.2 text-to-video model. Free credits are limited and can change; check your provider balance before generating.
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>© 2026 Creacto · Video generation provided by Hugging Face Inference Providers</footer>
+  </div>
 
-  <footer><p>© 2026 Creacto. Create More. Build Faster.</p></footer>
+  <script type="module">
+    const promptInput = document.getElementById("videoPrompt");
+    const tokenInput = document.getElementById("hfToken");
+    const generateButton = document.getElementById("generateVideo");
+    const status = document.getElementById("status");
+    const videoBox = document.getElementById("videoBox");
+    const videoPreview = document.getElementById("videoPreview");
+    const downloadVideo = document.getElementById("downloadVideo");
+    let currentVideoUrl = "";
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("light");
-    }
-
-    function buildStory() {
-      const idea = document.getElementById("storyIdea").value.trim();
-      const genre = document.getElementById("genre").value;
-      const result = document.getElementById("storyResult");
-      result.replaceChildren();
-
+    document.getElementById("buildPrompt").addEventListener("click", () => {
+      const idea = document.getElementById("ideaInput").value.trim();
       if (!idea) {
-        result.textContent = "Add your story idea first.";
+        setStatus("Add a short idea first, then build your prompt.", "error");
+        document.getElementById("ideaInput").focus();
         return;
       }
+      promptInput.value = `${idea}. Colorful, family-friendly animation, expressive characters, smooth natural movement, cinematic camera motion, warm lighting, detailed environment, consistent character design.`;
+      document.getElementById("promptCount").textContent = promptInput.value.length;
+      setStatus("Prompt ready. Edit it if you like, then generate your video.", "success");
+      promptInput.focus();
+    });
 
-      const parts = [
-        ["1. The opening", `Introduce your main character and their world. Begin with this idea: “${idea}”. What does the character want?`],
-        ["2. The invitation", `Show the event that pulls the character into the ${genre.toLowerCase()} story. What changes their ordinary day?`],
-        ["3. The first obstacle", "Give the character a challenge. What makes their goal difficult, and what might they lose?"],
-        ["4. The discovery", "Let the character meet someone or discover something that changes how they understand the problem."],
-        ["5. The big choice", "Bring the character to their hardest moment. What choice can only they make?"],
-        ["6. The ending", "Resolve the main challenge. Show what changed for the character and leave room for the reader to imagine what comes next."]
-      ];
+    promptInput.addEventListener("input", () => {
+      document.getElementById("promptCount").textContent = promptInput.value.length;
+    });
 
-      for (const [title, text] of parts) {
-        const card = document.createElement("section");
-        card.className = "story-part";
-        const heading = document.createElement("h3");
-        heading.textContent = title;
-        const paragraph = document.createElement("p");
-        paragraph.textContent = text;
-        card.append(heading, paragraph);
-        result.append(card);
-      }
+    document.getElementById("clearToken").addEventListener("click", () => {
+      tokenInput.value = "";
+      tokenInput.focus();
+      setStatus("Token cleared from this page.");
+    });
+
+    function setStatus(message, kind = "") {
+      status.textContent = message;
+      status.className = `status ${kind}`.trim();
     }
 
-    async function copyStory() {
-      const result = document.getElementById("storyResult");
-      if (!result.textContent.trim()) {
-        alert("Build your outline first.");
-        return;
+    function getErrorMessage(error) {
+      const message = String(error?.message || error || "Unknown error");
+      if (/401|403|unauthorized|forbidden|token/i.test(message)) {
+        return "Hugging Face rejected the token. Check that it is valid and has Inference Providers permission.";
       }
+      if (/402|payment|credit|billing/i.test(message)) {
+        return "Your Hugging Face credits or balance may be empty. Check your Inference Providers billing page.";
+      }
+      if (/429|too many|rate/i.test(message)) {
+        return "The provider is busy or has rate-limited this request. Wait a little and try again.";
+      }
+      return `Video generation failed: ${message}`;
+    }
+
+    generateButton.addEventListener("click", async () => {
+      const prompt = promptInput.value.trim();
+      const token = tokenInput.value.trim();
+      if (!prompt) { setStatus("Add a scene prompt first.", "error"); promptInput.focus(); return; }
+      if (!token) { setStatus("Enter your Hugging Face token to continue.", "error"); tokenInput.focus(); return; }
+
+      generateButton.disabled = true;
+      generateButton.textContent = "⏳ Generating…";
+      downloadVideo.style.display = "none";
+      videoBox.classList.remove("ready");
+      setStatus("Sending your prompt to Hugging Face. Video generation can take a few minutes.");
+
       try {
-        await navigator.clipboard.writeText(result.innerText);
-        alert("Your outline was copied.");
-      } catch {
-        alert("Copy wasn’t available. Select the outline and copy it manually.");
+        const { InferenceClient } = await import("https://esm.sh/@huggingface/inference@4.13.32");
+        const client = new InferenceClient(token, { provider: "fal-ai" });
+        const videoBlob = await client.textToVideo({
+          inputs: prompt,
+          model: "Wan-AI/Wan2.2-TI2V-5B"
+        });
+        if (!(videoBlob instanceof Blob) || videoBlob.size === 0) {
+          throw new Error("The provider returned an empty video file.");
+        }
+
+        if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl);
+        currentVideoUrl = URL.createObjectURL(videoBlob);
+        videoPreview.src = currentVideoUrl;
+        downloadVideo.href = currentVideoUrl;
+        videoBox.classList.add("ready");
+        downloadVideo.style.display = "inline-flex";
+        setStatus("Your video is ready. Preview it here or download it.", "success");
+      } catch (error) {
+        setStatus(getErrorMessage(error), "error");
+      } finally {
+        generateButton.disabled = false;
+        generateButton.textContent = "✨ Generate video";
       }
-    }
+    });
+
+    window.addEventListener("beforeunload", () => {
+      if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl);
+      tokenInput.value = "";
+    });
   </script>
 </body>
 </html>
