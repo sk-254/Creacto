@@ -4,910 +4,198 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creacto — Create More. Build Faster.</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; }
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #08090d;
-      color: #ffffff;
+      color: #fff;
       min-height: 100vh;
     }
-
+    header, main, footer {
+      width: min(100% - 32px, 1000px);
+      margin: auto;
+    }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
+      padding: 20px 0;
     }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
+    .logo { font-size: 25px; font-weight: 800; }
+    .logo span, h1 span { color: #a475ff; }
+    button, textarea, select { font: inherit; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      background: #8d5cf6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
     }
-
-    .logo span {
-      color: #9b6cff;
-    }
-
+    button:hover { background: #7545df; }
     .theme {
       border: 1px solid #333644;
       background: #151722;
-      color: white;
       border-radius: 50px;
       padding: 9px 14px;
-      cursor: pointer;
     }
-
     .hero {
       text-align: center;
-      padding: 80px 20px 60px;
-      max-width: 850px;
-      margin: auto;
+      padding: 65px 0 38px;
     }
-
     .badge {
       display: inline-block;
-      background: #19152a;
-      color: #b998ff;
-      border: 1px solid #44356d;
       padding: 8px 14px;
+      border: 1px solid #44356d;
       border-radius: 50px;
-      font-size: 14px;
-      margin-bottom: 22px;
+      color: #c9b2ff;
+      background: #19152a;
     }
-
     h1 {
-      font-size: clamp(42px, 10vw, 76px);
-      line-height: 1;
-      margin-bottom: 22px;
+      font-size: clamp(42px, 9vw, 72px);
+      line-height: 1.04;
+      margin: 22px 0 16px;
     }
-
-    h1 span {
-      color: #a475ff;
-    }
-
-    .hero p {
-      color: #a8acbb;
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 650px;
-      margin: auto;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 30px;
-      background: #8d5cf6;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px 20px 70px;
-    }
-
-    .section h2 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .section-intro {
-      text-align: center;
-      color: #9297a8;
-      margin-bottom: 30px;
-    }
-
-    .tools {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: #12141c;
+    .hero p, .intro { color: #a8acbb; line-height: 1.6; }
+    .panel {
+      margin: 24px 0 60px;
+      padding: 26px;
       border: 1px solid #292c38;
       border-radius: 18px;
-      padding: 24px;
-      transition: 0.2s;
+      background: #12141c;
     }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: #7652c9;
+    label { display: block; margin: 18px 0 8px; font-weight: bold; }
+    textarea, select {
+      width: 100%;
+      padding: 14px;
+      color: white;
+      background: #08090d;
+      border: 1px solid #333644;
+      border-radius: 10px;
     }
-
-    .icon {
-      font-size: 30px;
-      margin-bottom: 15px;
+    textarea { min-height: 115px; resize: vertical; }
+    .actions { display: flex; gap: 10px; margin-top: 16px; }
+    .secondary { background: #292c38; }
+    #storyResult { margin-top: 26px; }
+    .story-part {
+      margin: 14px 0;
+      padding: 16px;
+      border-left: 3px solid #8d5cf6;
+      border-radius: 8px;
+      background: #0b0d13;
+      line-height: 1.6;
     }
-
-    .card h3 {
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #9297a8;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
+    .story-part h3 { margin: 0 0 6px; }
+    .hint { color: #a8acbb; font-size: 14px; }
     footer {
-      text-align: center;
-      padding: 35px 20px;
+      padding: 28px 0;
       border-top: 1px solid #222530;
       color: #777c8d;
+      text-align: center;
     }
-
-    body.light {
-      background: #f7f7fb;
-      color: #11131a;
-    }
-
-    body.light .card {
-      background: white;
-      border-color: #e2e3ea;
-    }
-
-    body.light .hero p,
-    body.light .section-intro,
-    body.light .card p {
-      color: #626776;
-    }
-
-    body.light .theme {
-      background: white;
-      color: #11131a;
-      border-color: #dddfe7;
-    }
+    body.light { background: #f7f7fb; color: #11131a; }
+    body.light .panel { background: white; border-color: #e2e3ea; }
+    body.light textarea, body.light select { background: white; color: #11131a; }
+    body.light .story-part { background: #f1eff8; }
+    body.light .hero p, body.light .intro, body.light .hint { color: #626776; }
   </style>
 </head>
-
 <body>
-
   <header>
     <div class="logo">Crea<span>cto</span></div>
-    <button class="theme" onclick="toggleTheme()">☀️ / 🌙</button>
+    <button class="theme secondary" type="button" onclick="toggleTheme()">☀️ / 🌙</button>
   </header>
 
   <main>
-
     <section class="hero">
-      <div class="badge">✨ AI tools for creators</div>
-
-      <h1>Create More.<br><span>Build Faster.</span></h1>
-
-      <p>
-        Creacto brings powerful creator tools together in one simple place.
-        Turn your ideas into content faster.
-      </p>
-
-      <a href="#tools" class="button">Start Creating — Free</a>
+      <div class="badge">✨ Your ideas, your stories</div>
+      <h1>Create More.<br><span>Build Your Story.</span></h1>
+      <p>Start with an idea and shape it into a story outline with your own characters, setting, and ending.</p>
     </section>
 
-    <section class="section" id="tools">
+    <section class="panel">
+      <h2>Story Builder</h2>
+      <p class="intro">Enter a story idea. Creacto will give you a six-part outline to make your own.</p>
 
-      <h2>Everything creators need</h2>
+      <label for="storyIdea">What is your story idea?</label>
+      <textarea id="storyIdea" placeholder="Example: A young musician finds a door that opens to yesterday"></textarea>
 
-      <p class="section-intro">
-        Start with an idea. Creacto helps you turn it into content.
-      </p>
+      <label for="genre">Choose a style</label>
+      <select id="genre">
+        <option>Adventure</option>
+        <option>Fantasy</option>
+        <option>Mystery</option>
+        <option>Comedy</option>
+        <option>Science fiction</option>
+        <option>Drama</option>
+        <option>Any style</option>
+      </select>
 
-      <div class="tools">
-
-        <div class="card">
-  <div class="icon">📝</div>
-  <h3>Script Generator</h3>
-  <p>Create YouTube scripts from simple ideas.</p>
-  <textarea id="scriptIdea" placeholder="What do you want to create?"></textarea>
-  <button onclick="generateScript()">Generate Script</button>
-  <div id="scriptResult"></div>
-</div>
-
-        <div class="card" onclick="openScriptGenerator()">
-          <div class="icon">💡</div>
-          <h3>Video Ideas</h3>
-          <p>Discover fresh ideas for your next video.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🎯</div>
-          <h3>Title Generator</h3>
-          <p>Create catchy titles designed to grab attention.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🔥</div>
-          <h3>Hook Generator</h3>
-          <p>Start your videos with powerful hooks.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🎨</div>
-          <h3>Prompt Generator</h3>
-          <p>Create prompts for your AI creative tools.</p>
-        </div>
-
+      <div class="actions">
+        <button type="button" onclick="buildStory()">Build My Outline</button>
+        <button type="button" class="secondary" onclick="copyStory()">Copy</button>
       </div>
-    </section>
+      <p class="hint">Your idea stays in this browser. Add your own names, details, and dialogue to every part.</p>
 
+      <div id="storyResult" aria-live="polite"></div>
+    </section>
   </main>
 
-  <footer>
-    <p>© 2026 Creacto. Create More. Build Faster.</p>
-  </footer>
-function generateScript() {
-  const idea = document.getElementById("scriptIdea").value.trim();
-  const result = document.getElementById("scriptResult");
+  <footer><p>© 2026 Creacto. Create More. Build Faster.</p></footer>
 
-  if (!idea) {
-    result.innerHTML = "Please enter an idea first.";
-    return;
-  }
-
-  result.innerHTML = `
-    <h2>🎬 ${idea}</h2>
-
-    <h3>🪝 Hook</h3>
-    <p>What if one ordinary day could turn into the most magical adventure ever?</p>
-
-    <h3>📖 Story</h3>
-    <p>
-      Once upon a time, a little girl named Lulu discovered something
-      extraordinary. While exploring near her home, she found a mysterious
-      garden hidden behind an old wooden gate.
-    </p>
-
-    <p>
-      Lulu stepped inside and discovered colorful flowers, friendly animals,
-      and sparkling lights dancing through the trees. Every step revealed
-      something new and wonderful.
-    </p>
-
-    <p>
-      Soon, Lulu realized that the garden needed her help. She bravely followed
-      a glowing path and helped the animals find their way home. By working
-      together, they brought the magical garden back to life.
-    </p>
-
-    <h3>🎞️ Scenes</h3>
-
-    <p><strong>Scene 1:</strong> Lulu discovers the mysterious garden.</p>
-    <p><strong>AI Prompt:</strong> A cute little girl discovering a magical
-    garden behind an old wooden gate, colorful flowers, warm sunlight,
-    cinematic children's animation, 4K.</p>
-
-    <p><strong>Scene 2:</strong> Lulu meets the friendly animals.</p>
-    <p><strong>AI Prompt:</strong> A little girl meeting friendly rabbits,
-    birds and butterflies in a magical garden, colorful children's animation,
-    joyful atmosphere, 4K.</p>
-
-    <p><strong>Scene 3:</strong> Lulu follows the glowing path.</p>
-    <p><strong>AI Prompt:</strong> Little girl walking along a glowing magical
-    path through an enchanted garden, sparkling lights, fantasy children's
-    animation, cinematic, 4K.</p>
-
-    <p><strong>Scene 4:</strong> Lulu helps the animals.</p>
-    <p><strong>AI Prompt:</strong> Brave little girl helping cute animals in a
-    magical garden, emotional and heartwarming children's animation, 4K.</p>
-
-    <p><strong>Scene 5:</strong> The garden comes back to life.</p>
-    <p><strong>AI Prompt:</strong> Magical garden blooming with colorful flowers
-    and sparkling lights, happy animals celebrating with a little girl,
-    beautiful children's animation, 4K.</p>
-
-    <p><strong>Scene 6:</strong> Lulu returns home with a smile.</p>
-    <p><strong>AI Prompt:</strong> Happy little girl walking home at sunset
-    after a magical adventure, warm golden light, children's animated movie
-    style, 4K.</p>
-
-    <h3>🎙️ Voice-over Ending</h3>
-    <p>
-      And from that day on, Lulu knew that even the smallest act of kindness
-      could create the biggest magic. The end. ✨
-    </p>
-  `;
-}
-  const idea = document.getElementById("scriptIdea").value.trim();
-  const result = document.getElementById("scriptResult");
-
-  if (!idea) {
-    result.innerHTML = "Please enter an idea first.";
-    return;
-  }
-
-  result.innerHTML = `
-    <h3>Your Script</h3>
-    <p><strong>Hook:</strong> Imagine a little girl who discovers something amazing...</p>
-    <p><strong>Story:</strong> ${idea}</p>
-    <p><strong>Ending:</strong> And that was only the beginning of her wonderful adventure!</p>
-  `;
-}
   <script>
     function toggleTheme() {
       document.body.classList.toggle("light");
     }
-  </script>
-<section class="section" id="prompt-tool">
-  <h2>🤖 Creacto Prompt Generator</h2>
-  <p class="section-intro">Turn your idea into a ready-to-use AI prompt.</p>
 
-  <div class="card">
-    <input id="topic" type="text" placeholder="What do you want to create?"
-      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
-
-    <button onclick="generatePrompt()" class="button" style="border:0;cursor:pointer;">
-      Generate Prompt
-    </button>
-
-    <div id="result" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
-  </div>
-</section>
-<section class="section" id="video-prompt-tool">
-  <h2>🎬 Video Prompt Generator</h2>
-  <p class="section-intro">Turn your story idea into a ready-to-use AI video prompt.</p>
-
-  <div class="card">
-    <input id="videoIdea" type="text"
-      placeholder="Example: Lulu meets the magical rabbit"
-      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
-
-    <button onclick="generateVideoPrompt()" class="button" style="border:0;cursor:pointer;">
-      🎥 Generate Video Prompt
-    </button>
-
-    <div id="videoResult" style="margin-top:20px;color:#a8acbb;line-height:1.6;"></div>
-  </div>
-</section>
-  <section class="section" id="scene-generator">
-  <h2>🎬 Lulu 6-Scene Video Builder</h2>
-  <p class="section-intro">
-    Generate six connected video prompts for your Lulu adventure.
-  </p>
-
-  <div class="card">
-    <button onclick="generateLuluScenes()" class="button"
-      style="border:0;cursor:pointer;">
-      🎥 Generate 6 Scenes
-    </button>
-
-    <div id="sceneResult"
-      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
-    </div>
-  </div>
-</section>
-  <section class="section" id="video-maker">
-  <h2>🎥 Video Maker</h2>
-  <p class="section-intro">
-    Turn your scene prompts into a video project.
-  </p>
-
-  <div class="card">
-    <h3>🎞️ Choose a Scene</h3>
-
-    <select id="videoScene"
-      style="width:100%;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;">
-      <option value="1">Scene 1 — The Mysterious Voice</option>
-      <option value="2">Scene 2 — The Talking Rabbit</option>
-      <option value="3">Scene 3 — The Magical Forest</option>
-      <option value="4">Scene 4 — The Challenge</option>
-      <option value="5">Scene 5 — Teamwork</option>
-      <option value="6">Scene 6 — The Magical Ending</option>
-    </select>
-
-    <button onclick="prepareVideoScene()" class="button"
-      style="border:0;cursor:pointer;">
-      🎬 Prepare Scene
-    </button>
-
-    <div id="videoMakerResult"
-      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
-    </div>
-  </div>
-</section>
-  <section class="section" id="create-video">
-  <h2>🎬 Create Video</h2>
-  <p class="section-intro">
-    Turn your prepared scene prompt into an AI video.
-  </p>
-
-  <div class="card">
-    <textarea id="videoPrompt"
-      placeholder="Your video prompt will appear here..."
-      style="width:100%;min-height:180px;padding:14px;border-radius:10px;border:1px solid #333644;background:#08090d;color:white;margin-bottom:12px;resize:vertical;"></textarea>
-
-    <button onclick="createVideo()" class="button"
-      style="border:0;cursor:pointer;">
-      🎬 Create Video
-    </button>
-
-    <div id="videoCreateResult"
-      style="margin-top:20px;color:#a8acbb;line-height:1.6;">
-    </div>
-  </div>
-</section>
-<script>
-function prepareVideoScene() {
-  const scene = document.getElementById("videoScene").value;
-  const result = document.getElementById("videoMakerResult");
-
-  const luluLook =
-    "Lulu, an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack";
-
-  const rabbitLook =
-    "a small white magical talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant";
-
-  const scenes = {
-    1: `${luluLook} walks through a beautiful countryside when she hears a mysterious voice coming from behind a tree. Colorful children's animation, expressive character, cinematic lighting, smooth camera movement, consistent character design, 4K.`,
-
-    2: `${luluLook} meets ${rabbitLook} for the first time. The rabbit hops out from behind a tree and surprises Lulu. Lulu looks amazed while the rabbit smiles and speaks to her. Magical countryside, colorful children's animation, expressive characters, cinematic camera movement, consistent character design, 4K.`,
-
-    3: `${luluLook} and ${rabbitLook} enter a beautiful magical forest together. Glowing flowers, sparkling streams, colorful trees and friendly magical creatures surround them. Lulu looks amazed while the rabbit guides her deeper into the forest. Fantasy children's animation, vibrant colors, cinematic camera movement, consistent character design, 4K.`,
-
-    4: `${luluLook} and ${rabbitLook} discover a mysterious problem deep inside the magical forest. Lulu looks worried while the rabbit encourages her to be brave. A dark magical cloud surrounds an ancient glowing tree. Emotional but child-friendly atmosphere, cinematic lighting, consistent character design, 4K.`,
-
-    5: `${luluLook} and ${rabbitLook} work together to break the magical spell surrounding the ancient tree. Lulu reaches toward the glowing tree while the rabbit uses its magical golden pendant. Bright golden light fills the forest as the dark cloud disappears. Happy magical children's animation, cinematic lighting, consistent character design, 4K.`,
-
-    6: `${luluLook} and ${rabbitLook} stand together in the peaceful magical forest as the sun sets. Glowing flowers shine around them while magical creatures celebrate. Lulu smiles at her new rabbit friend, knowing they will share many more adventures. Warm golden sunset, beautiful children's animation, emotional ending, cinematic lighting, consistent character design, 4K.`
-  };
-
-  result.innerHTML = `
-    <h3>🎬 Scene ${scene} Ready</h3>
-    <p>${scenes[scene]}</p>
-
-    <button onclick="copyPreparedScene()" class="button"
-      style="border:0;cursor:pointer;">
-      📋 Copy Scene Prompt
-    </button>
-  `;
-}
-
-function copyPreparedScene() {
-  const result = document.getElementById("videoMakerResult");
-
-  if (!result) return;
-
-  navigator.clipboard.writeText(result.innerText).then(() => {
-    alert("Scene prompt copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the scene. Please copy it manually.");
-  });
-}
-  function createVideo() {
-  const prompt = document.getElementById("videoPrompt").value.trim();
-  const result = document.getElementById("videoCreateResult");
-
-  if (!prompt) {
-    result.textContent = "Please paste a video prompt first.";
-    return;
-  }
-
-  result.innerHTML = `
-    <h3>🎬 Video Ready to Generate</h3>
-    <p>Your scene prompt has been prepared successfully.</p>
-
-    <p>
-      <strong>Next step:</strong> Connect Creacto to an AI video-generation
-      service to turn this prompt into an actual video.
-    </p>
-
-    <button onclick="copyCreateVideoPrompt()" class="button"
-      style="border:0;cursor:pointer;">
-      📋 Copy Video Prompt
-    </button>
-  `;
-}
-
-function copyCreateVideoPrompt() {
-  const prompt = document.getElementById("videoPrompt");
-
-  if (!prompt) return;
-
-  navigator.clipboard.writeText(prompt.value).then(() => {
-    alert("Video prompt copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the prompt. Please copy it manually.");
-  });
-}
-  function generateLuluScenes() {
-  const result = document.getElementById("sceneResult");
-
-  if (!result) return;
-
-  const luluLook =
-    "Lulu, an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack";
-
-  const rabbitLook =
-    "a small white magical talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant";
-
-  result.innerHTML = `
-    <h3>🎞️ Scene 1 — The Mysterious Voice</h3>
-    <p>
-      ${luluLook} walks through a beautiful countryside and hears a mysterious
-      voice coming from behind a tree. Colorful children's animation, cinematic
-      lighting, smooth camera movement, consistent character design, 4K.
-    </p>
-
-    <h3>🎞️ Scene 2 — The Talking Rabbit</h3>
-    <p>
-      ${luluLook} meets ${rabbitLook} for the first time. The rabbit hops out
-      from behind a tree and surprises Lulu. Magical countryside, expressive
-      characters, cinematic camera movement, consistent character design, 4K.
-    </p>
-
-    <h3>🎞️ Scene 3 — The Magical Forest</h3>
-    <p>
-      ${luluLook} and ${rabbitLook} enter a beautiful magical forest together.
-      Glowing flowers, sparkling streams and friendly magical creatures surround
-      them. Fantasy children's animation, vibrant colors, cinematic movement,
-      consistent character design, 4K.
-    </p>
-
-    <h3>🎞️ Scene 4 — The Challenge</h3>
-    <p>
-      ${luluLook} and ${rabbitLook} discover a mysterious problem deep inside
-      the magical forest. A dark magical cloud surrounds an ancient glowing
-      tree. Emotional but child-friendly atmosphere, cinematic lighting,
-      consistent character design, 4K.
-    </p>
-
-    <h3>🎞️ Scene 5 — Teamwork</h3>
-    <p>
-      ${luluLook} and ${rabbitLook} work together to break the magical spell.
-      Lulu reaches toward the glowing tree while the rabbit uses its golden
-      pendant. Bright golden light fills the forest. Magical children's
-      animation, cinematic lighting, consistent character design, 4K.
-    </p>
-
-    <h3>🎞️ Scene 6 — The Magical Ending</h3>
-    <p>
-      ${luluLook} and ${rabbitLook} stand together as the sun sets. Glowing
-      flowers shine around them while magical creatures celebrate. Lulu smiles
-      at her new friend. Warm golden sunset, emotional children's animation,
-      cinematic lighting, consistent character design, 4K.
-    </p>
-
-    <button onclick="copyScenes()" class="button"
-      style="border:0;cursor:pointer;">
-      📋 Copy All 6 Scenes
-    </button>
-    <div style="margin-top:15px;">
-  <button onclick="prepareClip(1)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 1
-  </button>
-
-  <button onclick="prepareClip(2)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 2
-  </button>
-
-  <button onclick="prepareClip(3)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 3
-  </button>
-
-  <button onclick="prepareClip(4)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 4
-  </button>
-
-  <button onclick="prepareClip(5)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 5
-  </button>
-
-  <button onclick="prepareClip(6)" class="button"
-    style="border:0;cursor:pointer;margin:4px;">
-    🎥 Scene 6
-  </button>
-</div>
-
-<div id="clipResult"
-  style="margin-top:20px;color:#a8acbb;line-height:1.6;">
-</div>
-    <button onclick="openFreeVideoWorkflow()" class="button"
-  style="border:0;cursor:pointer;margin-top:10px;">
-  🎬 Make Lulu Video
-</button>
-  `;
-}
-function prepareClip(sceneNumber) {
-  const result = document.getElementById("clipResult");
-
-  if (!result) return;
-
-  const scenes = {
-    1: "Lulu walks through a beautiful countryside and hears a mysterious voice coming from behind a tree.",
-    2: "Lulu meets the small white magical talking rabbit for the first time. The rabbit hops out from behind a tree and surprises her.",
-    3: "Lulu and the magical talking rabbit enter a beautiful magical forest filled with glowing flowers, sparkling streams and friendly magical creatures.",
-    4: "Lulu and the magical talking rabbit discover a mysterious problem deep inside the forest. A dark magical cloud surrounds an ancient glowing tree.",
-    5: "Lulu and the magical talking rabbit work together to break the magical spell. Bright golden light fills the forest as the dark cloud disappears.",
-    6: "Lulu and the magical talking rabbit stand together as the sun sets. Glowing flowers shine around them while magical creatures celebrate."
-  };
-
-  result.innerHTML = `
-    <h3>🎥 Scene ${sceneNumber} Clip Ready</h3>
-
-    <p>
-      ${scenes[sceneNumber]}
-    </p>
-
-    <p>
-      <strong>Style:</strong> cinematic children's animation, 4K,
-      smooth camera movement, expressive characters, colorful environment,
-      warm lighting, detailed animation, consistent character design.
-    </p>
-
-    <button onclick="copyClipPrompt(${sceneNumber})"
-      class="button" style="border:0;cursor:pointer;">
-      📋 Copy Scene ${sceneNumber} Prompt
-    </button>
-  `;
-}
-
-function copyClipPrompt(sceneNumber) {
-  const result = document.getElementById("clipResult");
-
-  if (!result) return;
-
-  navigator.clipboard.writeText(result.innerText).then(() => {
-    alert("Scene " + sceneNumber + " prompt copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the prompt. Please copy it manually.");
-  });
-}
-function copyScenes() {
-  const result = document.getElementById("sceneResult");
-
-  if (!result) return;
-
-  navigator.clipboard.writeText(result.innerText).then(() => {
-    alert("All 6 scene prompts copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the scenes. Please copy them manually.");
-  });
-}
-  function openFreeVideoWorkflow() {
-  const result = document.getElementById("sceneResult");
-
-  if (!result) {
-    alert("Generate the six scenes first.");
-    return;
-  }
-
-  alert("Your six Lulu video scenes are ready! 🎬🐰 Copy them and create each scene as a separate video clip.");
-}
-function generateVideoPrompt() {
-  const idea = document.getElementById("videoIdea").value.trim();
-  const result = document.getElementById("videoResult");
-
-  if (!idea) {
-    result.textContent = "Please enter a scene idea first.";
-    return;
-  }
-
-  result.innerHTML = `
-    <h3>🎬 Your AI Video Prompt</h3>
-    <p>
-      ${idea}. Lulu is an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack. The magical rabbit is a small white talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant. Create a high-quality cinematic children's animated video
-      in 4K. Keep the characters visually consistent throughout the scene.
-      Use expressive facial emotions, smooth natural movement, colorful
-      environments, cinematic camera movement, warm lighting and detailed
-      animation. Make the scene magical, engaging and suitable for children.
-    </p>
-
-    <button onclick="copyVideoPrompt()" class="button"
-      style="border:0;cursor:pointer;">
-      📋 Copy Video Prompt
-    </button>
-  `;
-}
-
-function copyVideoPrompt() {
-  const result = document.getElementById("videoResult");
-
-  if (!result) return;
-
-  navigator.clipboard.writeText(result.innerText).then(() => {
-    alert("Video prompt copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the prompt. Please copy it manually.");
-  });
-}
-function generatePrompt() {
-  const topic = document.getElementById("topic").value.trim();
-  const result = document.getElementById("result");
-
-  if (!topic) {
-    result.textContent = "Please enter an idea first.";
-    return;
-  }
-
-  result.textContent =
-    "Create a high-quality, engaging piece of content about " +
-    topic +
-    ". Make it clear, creative, visually appealing, and suitable for a modern audience. Include a strong opening hook, useful details, and an engaging ending.";
-}
-function generateScript() {
-  const idea = document.getElementById("scriptIdea").value.trim();
-  const result = document.getElementById("scriptResult");
-
-  if (!idea) {
-    result.innerHTML = "Please enter an idea first.";
-    return;
-  }
-
-  let hero = "Lulu";
-  let friend = "a magical talking rabbit";
-const luluLook =
-  "Lulu, an 8-year-old girl with curly black hair, bright brown eyes, a yellow dress, red shoes, and a small purple backpack";
-
-const rabbitLook =
-  "a small white magical talking rabbit with blue eyes, a blue vest, long ears, and a glowing golden pendant";
-  if (idea.toLowerCase().includes("lulu")) {
-    hero = "Lulu";
-  }
-
-  if (idea.toLowerCase().includes("rabbit")) {
-    friend = "a magical talking rabbit";
-  }
-
-  result.innerHTML = `
-    <h2>🎬 ${idea}</h2>
-
-    <h3>🪝 Hook</h3>
-    <p>
-      What if an ordinary day suddenly became the beginning of the most
-      magical adventure ever?
-    </p>
-
-    <h3>📖 Story</h3>
-
-    <p>
-      One beautiful morning, ${hero} was walking through the countryside
-      when she heard a strange voice coming from behind a tree.
-    </p>
-
-    <p>
-      “Hey! Over here!” the voice called.
-      ${hero} stopped and looked around in surprise.
-      “Who said that?”
-    </p>
-
-    <p>
-      Suddenly, ${friend} hopped out from behind the tree.
-      “Me!” said the rabbit. “And I need your help!”
-    </p>
-
-    <p>
-      ${hero} couldn't believe her ears. A talking rabbit was standing right
-      in front of her! But before she could ask another question, the rabbit
-      revealed that something mysterious was happening in the magical forest.
-    </p>
-
-    <p>
-      Together, ${hero} and the rabbit entered the forest. They discovered
-      glowing flowers, sparkling streams and friendly magical creatures.
-      But deep inside the forest, they found a problem that needed to be
-      solved.
-    </p>
-
-    <p>
-      At first, the challenge seemed impossible. ${hero} was nervous, but
-      the rabbit reminded her that courage means trying even when you are
-      afraid.
-    </p>
-
-    <p>
-      Working together, ${hero} and her new friend used kindness, courage
-      and imagination to solve the problem. The magical forest became bright
-      again, and everyone celebrated.
-    </p>
-
-    <p>
-      As the sun began to set, ${hero} smiled at her new friend.
-      She knew this was an adventure she would never forget.
-    </p>
-
-    <h3>💬 Dialogue</h3>
-
-    <p><strong>${hero}:</strong> “Wait... you can talk?”</p>
-    <p><strong>Rabbit:</strong> “Of course! And I really need your help!”</p>
-    <p><strong>${hero}:</strong> “Then let's go. We'll solve this together!”</p>
-    <p><strong>Rabbit:</strong> “That's the spirit!”</p>
-
-    <h3>🎞️ Scene 1 — The Mysterious Voice</h3>
-    <p>
-  ${luluLook} walking through a beautiful countryside when she hears a
-  mysterious voice coming from behind a tree. Children's animated movie
-  style, colorful environment, expressive character, cinematic lighting,
-  consistent character design, 4K.
-</p>
-
-    <h3>🎞️ Scene 2 — The Talking Rabbit</h3>
-    <p>
-  ${luluLook} meets ${rabbitLook} for the first time. The rabbit hops out
-  from behind a tree and surprises Lulu. Lulu looks amazed while the rabbit
-  smiles and speaks to her. Magical countryside, colorful children's
-  animation, expressive characters, cinematic camera movement, consistent
-  character design, 4K.
-</p>
-
-<h3>🎞️ Scene 3 — Entering the Magical Forest</h3>
-<p>
-  ${luluLook} and ${rabbitLook} enter a beautiful magical forest together.
-  Glowing flowers, sparkling streams, colorful trees and friendly magical
-  creatures surround them. Lulu looks amazed while the rabbit guides her
-  deeper into the forest. Fantasy children's animation, vibrant colors,
-  cinematic camera movement, consistent character design, 4K.
-</p>
-<h3>🎞️ Scene 4 — The Challenge</h3>
-<p>
-  ${luluLook} and ${rabbitLook} discover a mysterious problem deep inside
-  the magical forest. Lulu looks worried, while the rabbit encourages her
-  to be brave. A dark magical cloud surrounds an ancient glowing tree in
-  the distance. Emotional children's animation, dramatic but friendly
-  atmosphere, cinematic lighting, consistent character design, 4K.
-</p>
-
-    <h3>🎞️ Scene 5 — Teamwork</h3>
-    <p>
-  ${luluLook} and ${rabbitLook} work together to break the magical spell
-  surrounding the ancient tree. Lulu reaches toward the glowing tree while
-  the rabbit uses its magical golden pendant. Bright golden light fills the
-  forest as the dark cloud disappears. Happy and emotional children's
-  animation, magical atmosphere, cinematic lighting, consistent character
-  design, 4K.
-</p>
-
-    <h3>🎞️ Scene 6 — The Magical Ending</h3>
-    <p>
-  ${luluLook} and ${rabbitLook} stand together in the peaceful magical
-  forest as the sun sets. The glowing flowers shine around them and the
-  magical creatures celebrate. Lulu smiles at her new rabbit friend,
-  knowing they will share many more adventures. Warm golden sunset,
-  beautiful children's animation, emotional ending, cinematic lighting,
-  consistent character design, 4K.
-</p>
-
-    <h3>🎙️ Voice-over Ending</h3>
-    <p>
-      And from that day forward, ${hero} knew that the best adventures are
-      the ones shared with a true friend. And sometimes, the most magical
-      friendships begin with a simple “Hello.” ✨
-    </p>
-    <button onclick="copyScript()" class="button" style="border:0;cursor:pointer;">
-  📋 Copy Script
-</button>
-  `;
-}
-  function copyScript() {
-  const result = document.getElementById("scriptResult");
-
-  if (!result) return;
-
-  const text = result.innerText;
-
-  navigator.clipboard.writeText(text).then(() => {
-    alert("Script copied! 📋");
-  }).catch(() => {
-    alert("Could not copy the script. Please select and copy it manually.");
-  });
-}
+    function buildStory() {
+      const idea = document.getElementById("storyIdea").value.trim();
+      const genre = document.getElementById("genre").value;
+      const result = document.getElementById("storyResult");
+      result.replaceChildren();
+
+      if (!idea) {
+        result.textContent = "Add your story idea first.";
+        return;
+      }
+
+      const parts = [
+        ["1. The opening", `Introduce your main character and their world. Begin with this idea: “${idea}”. What does the character want?`],
+        ["2. The invitation", `Show the event that pulls the character into the ${genre.toLowerCase()} story. What changes their ordinary day?`],
+        ["3. The first obstacle", "Give the character a challenge. What makes their goal difficult, and what might they lose?"],
+        ["4. The discovery", "Let the character meet someone or discover something that changes how they understand the problem."],
+        ["5. The big choice", "Bring the character to their hardest moment. What choice can only they make?"],
+        ["6. The ending", "Resolve the main challenge. Show what changed for the character and leave room for the reader to imagine what comes next."]
+      ];
+
+      for (const [title, text] of parts) {
+        const card = document.createElement("section");
+        card.className = "story-part";
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+        const paragraph = document.createElement("p");
+        paragraph.textContent = text;
+        card.append(heading, paragraph);
+        result.append(card);
+      }
+    }
+
+    async function copyStory() {
+      const result = document.getElementById("storyResult");
+      if (!result.textContent.trim()) {
+        alert("Build your outline first.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(result.innerText);
+        alert("Your outline was copied.");
+      } catch {
+        alert("Copy wasn’t available. Select the outline and copy it manually.");
+      }
+    }
   </script>
 </body>
 </html>
