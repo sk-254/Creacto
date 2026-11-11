@@ -7,7 +7,7 @@
   <title>Creacto — make a video from your idea</title>
   <meta name="description" content="Turn a creative idea into an AI video with Creacto.">
   <style>
-    :root { color-scheme: dark; --bg:#0b0b13; --panel:#141420; --line:#29283a; --ink:#f7f5ff; --muted:#a7a3b8; --purple:#a78bfa; --pink:#f0abfc; --good:#86efac; --bad:#fda4af; }
+    :root { color-scheme: dark; --bg:#0b0b13; --panel:#141420; --line:#29283a; --ink:#f7f5ff; --muted:#a7a3b8; --purple:#a78bfa; --good:#86efac; --bad:#fda4af; }
     * { box-sizing:border-box }
     body { margin:0; min-height:100vh; color:var(--ink); background:radial-gradient(ellipse at 50% -15%,#30234f 0,transparent 45%),var(--bg); font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif }
     button,input,textarea { font:inherit }
@@ -28,12 +28,12 @@
     h2 { margin:0 0 4px; font-size:1.24rem; letter-spacing:-.025em }
     .sub { margin:0 0 20px; color:var(--muted); font-size:.92rem }
     label { display:block; margin:16px 0 7px; font-size:.88rem; font-weight:650 }
-    textarea,input[type=password] { width:100%; border:1px solid #373448; border-radius:12px; background:#0d0d16; color:var(--ink); padding:12px 14px; outline:none }
+    textarea,input[type=password],input[type=text] { width:100%; border:1px solid #373448; border-radius:12px; background:#0d0d16; color:var(--ink); padding:12px 14px; outline:none }
     textarea:focus,input:focus { border-color:#9b7afa; box-shadow:0 0 0 3px #8b5cf622 }
     textarea { min-height:155px; resize:vertical }
     .hint { color:var(--muted); font-size:.8rem; margin:7px 0 0 }
     .keyrow { display:flex; gap:8px }
-    .keyrow input { min-width:0 }
+    .keyrow input { min-width:0; flex:1 }
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 16px; border:0; border-radius:12px; color:white; font-weight:750; cursor:pointer; background:linear-gradient(100deg,#7c3aed,#a855f7) }
     .btn:hover { filter:brightness(1.1) }
     .btn:disabled { opacity:.55; cursor:wait }
@@ -51,6 +51,14 @@
     .empty-icon { font-size:2.2rem; margin-bottom:6px }
     .download { margin-top:12px; display:none }
     .help { margin-top:20px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem }
+    .story-card { margin-bottom:18px }
+    .story-result { margin-top:16px; color:#ded9ee }
+    .story-result h3 { margin:12px 0 6px; font-size:1rem }
+    .story-result p { color:var(--muted); margin:0 0 10px }
+    .scene-list { display:grid; gap:9px; padding:0; list-style:none }
+    .scene-item { display:flex; justify-content:space-between; gap:12px; align-items:center; border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:#ddd8ea; font-size:.88rem }
+    .scene-item span { flex:1 }
+    .scene-item .btn { min-height:36px; padding:7px 10px; font-size:.78rem; white-space:nowrap }
     details { margin-top:14px; color:var(--muted); font-size:.84rem }
     summary { color:#ded9ee; cursor:pointer; font-weight:650 }
     footer { padding:23px 0 34px; border-top:1px solid #ffffff12; color:#858196; font-size:.8rem; text-align:center }
@@ -68,6 +76,17 @@
         <div class="badge">✦ Your idea, in motion</div>
         <h1>Make a video<br><span>from your idea.</span></h1>
         <p>Write a scene, connect your own Hugging Face token, and generate a video with an open text-to-video model.</p>
+      </section>
+
+      <section class="card story-card" aria-label="Story generator">
+        <h2>📖 Story generator</h2>
+        <p class="sub">Turn a simple idea into a short story outline and six video scenes.</p>
+        <div class="keyrow">
+          <input id="storyIdea" type="text" maxlength="250" autocomplete="off" placeholder="Example: a girl finds a tiny dragon in her garden">
+          <button class="btn" id="generateStory" type="button">Generate story</button>
+        </div>
+        <p class="hint">This starter story is created locally in your browser. Choose a scene below to send it to the video prompt.</p>
+        <div class="story-result" id="storyResult" aria-live="polite"></div>
       </section>
 
       <section class="studio" aria-label="Video creation studio">
@@ -131,6 +150,57 @@
     const videoPreview = document.getElementById("videoPreview");
     const downloadVideo = document.getElementById("downloadVideo");
     let currentVideoUrl = "";
+
+    document.getElementById("generateStory").addEventListener("click", () => {
+      const idea = document.getElementById("storyIdea").value.trim().replace(/[.!?]+$/, "");
+      const result = document.getElementById("storyResult");
+      if (!idea) {
+        setStatus("Enter a story idea first.", "error");
+        document.getElementById("storyIdea").focus();
+        return;
+      }
+
+      const scenes = [
+        `On an ordinary day, the main character discovers ${idea}.`,
+        "A surprising clue reveals that this discovery could help someone in need.",
+        "The main character sets off to find answers, meeting a helpful new friend along the way.",
+        "A sudden obstacle makes the goal seem impossible, and the friends have to rethink their plan.",
+        "They combine their strengths, solve the problem, and help the people around them.",
+        "As the day ends, the friends celebrate what they accomplished and imagine their next adventure."
+      ];
+
+      result.replaceChildren();
+      const title = document.createElement("h3");
+      title.textContent = `Story outline: ${idea}`;
+      const story = document.createElement("p");
+      story.textContent = `One day, the main character discovers ${idea}. A clue shows that the discovery could help someone in need. With a new friend, they follow the clues and face an unexpected obstacle. By working together, they find a solution and make things better for everyone. At the end of the day, they celebrate their success and look forward to another adventure.`;
+      const sceneHeading = document.createElement("h3");
+      sceneHeading.textContent = "Six video scenes";
+      const list = document.createElement("ol");
+      list.className = "scene-list";
+
+      scenes.forEach((scene, index) => {
+        const item = document.createElement("li");
+        item.className = "scene-item";
+        const description = document.createElement("span");
+        description.textContent = `Scene ${index + 1}: ${scene}`;
+        const useButton = document.createElement("button");
+        useButton.className = "btn secondary";
+        useButton.type = "button";
+        useButton.textContent = "Use scene";
+        useButton.addEventListener("click", () => {
+          promptInput.value = `${scene} Colorful, family-friendly animation, expressive characters, smooth natural movement, cinematic camera motion, warm lighting, detailed environment, consistent character design.`;
+          document.getElementById("promptCount").textContent = promptInput.value.length;
+          setStatus(`Scene ${index + 1} added to the video prompt.`, "success");
+          promptInput.focus();
+        });
+        item.append(description, useButton);
+        list.append(item);
+      });
+
+      result.append(title, story, sceneHeading, list);
+      setStatus("Story outline and scenes are ready.", "success");
+    });
 
     document.getElementById("buildPrompt").addEventListener("click", () => {
       const idea = document.getElementById("ideaInput").value.trim();
